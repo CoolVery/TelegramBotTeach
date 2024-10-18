@@ -5,8 +5,9 @@ from aiogram.utils.keyboard import ReplyKeyboardBuilder, InlineKeyboardBuilder
 #Кнопки клавиатуры - внутрь подается лист листов. Если мы хотим, чтобы кнопки были в ряд, то тогда в одном листе
 #пишем несколько запятую. Т.е. один лист - это строка
 main = ReplyKeyboardMarkup(keyboard=[
-    [KeyboardButton(text='Каталог')],
-    [KeyboardButton(text='Корзина'), KeyboardButton(text='Каталог')],
+    [KeyboardButton(text='Каталог'),],
+    [KeyboardButton(text='Корзина'), 
+     KeyboardButton(text='Каталог')],
 ],
                            #Делает кнопки меньше
                            resize_keyboard=True,
@@ -15,8 +16,11 @@ main = ReplyKeyboardMarkup(keyboard=[
                            )
 
 #Кнопки сообщения - тоже самое, только кроме текста должны содержать доп параметр
+#Callback - это то, что вернет кнопка при нажатии
 settings = InlineKeyboardMarkup(inline_keyboard=[
-    [InlineKeyboardButton(text='Крутой', url='https://t.me/Choto_Neznay')]
+    [InlineKeyboardButton(text='Крутой', callback_data='cool')],
+    [InlineKeyboardButton(text='Очень', callback_data='very')],
+    [InlineKeyboardButton(text='Он', callback_data='he')]
 ])
 
 #Мы можем в текст кнопок передать значения списков через цикл

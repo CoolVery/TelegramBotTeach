@@ -1,6 +1,6 @@
 from aiogram import F, Router
 from aiogram.filters import CommandStart, Command
-from aiogram.types import Message
+from aiogram.types import Message, CallbackQuery
 #Подключили кнопки
 import app.keyboards as kb
 
@@ -17,7 +17,7 @@ async def cmd_start(message: Message):
                          reply_markup=kb.main) #просто сообщение после команды
     await message.reply(f'Дароу, {message.from_user.first_name}',
     #Тут асинхронные кнопки                  
-                        reply_markup=await kb.inline_cars()) #ответ на сообщение пользователя
+                        reply_markup=kb.settings) #ответ на сообщение пользователя
 
 @router.message(Command('help')) #Создали команду Command - /help
 async def cmd_start(message: Message):
@@ -41,3 +41,12 @@ async def cmd_start(message: Message):
         photo='AgACAgIAAxkBAAMaZxAL6Y5dkLdJqyHgtjJ4cO9xstEAAmf7MRtMYoBIGupYZMut-ooBAAMCAAN5AAM2BA',
         caption='Фнс схема'
     )
+    
+@router.callback_query(F.data == 'cool')
+async def cool(callback: CallbackQuery):
+    #Это чтобы кнопка после нажатия не светилась, но можно сделать из этого уведомление
+    await callback.answer('')
+    #Он заменит первое сообщение на новое
+    await callback.message.edit_text('Дароу', reply_markup=await kb.inline_cars())
+    #так бот ответит следующим сообщением
+    #await callback.message.answer('Дароу', reply_markup=await kb.inline_cars())
