@@ -1,19 +1,18 @@
 import asyncio
+import os
 
 from aiogram import Bot, Dispatcher, F
+from dotenv import load_dotenv
 
 from config import TOKEN
 from app.handlers import router
 
-
-#Bot - это сам экземпляр нашего бота
-bot = Bot(token=TOKEN)
-#Dispatcher - Главный роутер, через него все происходит
-dp = Dispatcher()
-
-
-
 async def main():
+    load_dotenv()
+    #Bot - это сам экземпляр нашего бота
+    bot = Bot(token=os.getenv('TOKEN'))
+    #Dispatcher - Главный роутер, через него все происходит
+    dp = Dispatcher()
     #Подключаем роутер к диспетчеру
     dp.include_router(router)
     #Эта функция отправляет запросы тг серверам и возвращает ответы
